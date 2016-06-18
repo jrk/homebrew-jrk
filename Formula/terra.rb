@@ -1,22 +1,20 @@
 class Terra < Formula
   desc "Terra language"
   homepage "http://terralang.org"
-  url "https://github.com/zdevito/terra/releases/download/release-2015-08-03/terra-OSX-x86_64-84bbb0b.zip"
-  version "2015-08-03"
-  sha256 "53b2473629c8ec03046d189b7ebfa13b12c2dabc5f0b2731fe7e4cc4abf7c82d"
+  url "https://github.com/zdevito/terra/releases/download/release-2016-03-25/terra-OSX-x86_64-332a506.zip"
+  version "2016-03-25"
+  sha256 "e1538266dfeb6b7545bf5f63f49dee23cf26819b0dd5d5855058d4298458e23f"
 
   def install
     lib.install 'lib/libterra.a'
-    lib.install 'lib/libterra_dynamic.so'
+    lib.install 'lib/terra.so'
     bin.install 'bin/terra'
-    include.install 'include'
+    include.install 'include/terra'
     share.install 'share/terra'
   end
 
   test do
-    Dir.chdir("#{share}/terra/tests") do
-      system "#{bin}/terra", "run"
-    end
-    #system "false"
+    res = `echo "print 'hi'" | "#{bin}/terra" -`
+    return res.strip == 'hi'
   end
 end
